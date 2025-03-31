@@ -5,8 +5,11 @@ import commentRouter from "./routes/comment.route.js";
 import connectDB from "./lib/connectDB.js";
 import webhookRouter from "./routes/webhook.route.js";
 import { clerkMiddleware } from "@clerk/express";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors(process.env.CLIENT_URL));
 app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
 app.use(express.json());
@@ -26,6 +29,10 @@ app.use(express.json());
 //     return res.status(401).json("not authenticated");
 //   }
 //   res.status(200).json("content");
+// });
+
+// app.get("/protect2", requireAuth(), (req, res) => {
+//   res.status(200).json("content")
 // });
 
 app.use("/users", userRouter);
