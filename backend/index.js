@@ -14,6 +14,15 @@ app.use(clerkMiddleware());
 app.use("/webhooks", webhookRouter);
 app.use(express.json());
 
+app.use(function (req, res, next) {
+  res.header("Access-Controle-Allow-Origin", "*");
+  res.header(
+    "Access-Controle-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 // app.get("/test", (req, res) => {
 //   res.status(200).send("it works!");
 // });
