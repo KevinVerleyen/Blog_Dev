@@ -1,6 +1,8 @@
-import ImageKit from "imagekit";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
+import ImageKit from "imagekit";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const getPosts = async (req, res) => {
   const posts = await Post.find();
@@ -13,7 +15,7 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
   const clerkUserId = req.auth.userId;
 
- 
+  // console.log(req.headers);
 
   if (!clerkUserId) {
     return res.status(401).json("not authenticated");
@@ -69,11 +71,9 @@ const imagekit = new ImageKit({
 });
 
 export const uploadAuth = async (req, res) => {
-  const result = imageKit.getAuthenticationParameters();
+  const result = imagekit.getAuthenticationParameters();
   res.send(result);
 };
-
-
 
 // import ImageKit from "imagekit";
 // import Post from "../models/post.model.js";
